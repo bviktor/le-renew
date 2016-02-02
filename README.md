@@ -1,5 +1,5 @@
 # le-renew
-Quick-n-dirty script for automating Let's Encrypt certificate renewals.
+Quick-n-dirty script for automatically renewing Let's Encrypt certificates.
 
 * List your domains in `le-domains.txt`. Lines starting with `#` will be ignored.
 For domains that are not subdomains, the `www` subdomain will be requested automatically, too.
