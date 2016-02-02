@@ -1,0 +1,1 @@
+00 07 1 * * root /root/le-renew/le-renew.sh >> /root/le-renew/le-renew.log 2>&1

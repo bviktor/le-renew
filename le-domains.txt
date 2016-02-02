@@ -1,0 +1,7 @@
+# list of domains that will be served from this host
+# one entry per line
+# entries that are not subdomains will automatically
+# request the www subdomain, too
+foobar.com
+lol.foobar.com
+loremipsum.com
