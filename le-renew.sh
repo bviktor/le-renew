@@ -51,7 +51,7 @@ renew_cert ()
 	${EXEC} "${LECMD} -d ${1}"
     fi
 
-    return 0
+    return $?
 }
 
 # don't parse lines starting with #
