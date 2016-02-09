@@ -32,6 +32,7 @@ ${EXEC} "mv --force ${ZNC_DIR}/znc.pem ${ZNC_DIR}/znc.pem.orig"
 
 if [ ! -f "${ZNC_DIR}/dhparam.pem" ]
 then
+    # this could take an hour or so
     ${EXEC} "openssl dhparam -out ${ZNC_DIR}/dhparam.pem 4096"
 fi
 
