@@ -1,13 +1,13 @@
 #!/bin/sh
 
 # make sure the script can find the domain list even when invoked from a different dir
-DIR=$(dirname $0)
+export DIR=$(dirname $0)
 
 # parse config file
 . "${DIR}/le-config.sh"
 
 # check domain list
-DOMLIST="${DIR}/le-domains.txt"
+export DOMLIST="${DIR}/le-domains.txt"
 
 dom_echo ()
 {
@@ -39,10 +39,14 @@ WWW=0
 
 if [ ${DEBUG} -eq 1 ]
 then
-    EXEC='echo'
+    export EXEC='echo'
 else
-    EXEC='eval'
+    export EXEC='eval'
 fi
+
+# execute pre-renew hook
+# run it regardless of $DEBUG so that we can see the commands inside the hooks
+eval ${DIR}/le-hook-pre.sh
 
 # make sure port 80 is available
 ${EXEC} "/bin/systemctl stop ${WEBSRV}"
@@ -102,5 +106,9 @@ then
     echo 'Please add at least one.'
     exit 2
 fi
+
+# execute post-renew hook
+# run it regardless of $DEBUG so that we can see the commands inside the hooks
+eval ${DIR}/le-hook-post.sh
 
 exit 0
