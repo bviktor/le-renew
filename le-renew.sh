@@ -52,7 +52,7 @@ fi
 
 # execute pre-renew hooks
 # run them regardless of $DEBUG so that we can see the commands inside the hooks
-for HOOK in $(ls -1 ${DIR}/hook-pre/*.sh)
+for HOOK in $(ls -1 ${DIR}/hook-pre/*.sh 2>/dev/null)
 do
     eval ${HOOK}
 done
@@ -118,7 +118,7 @@ fi
 
 # execute post-renew hooks
 # run them regardless of $DEBUG so that we can see the commands inside the hooks
-for HOOK in $(ls -1 ${DIR}/hook-post/*.sh)
+for HOOK in $(ls -1 ${DIR}/hook-post/*.sh 2>/dev/null)
 do
     eval ${HOOK}
 done
