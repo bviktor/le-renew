@@ -6,8 +6,24 @@ DIR=$(dirname $0)
 # parse config file
 . "${DIR}/le-config.sh"
 
-# parse domain list
+# check domain list
 DOMLIST="${DIR}/le-domains.txt"
+
+dom_echo ()
+{
+    echo "$1" >> ${DOMLIST}
+}
+
+if [ ! -f ${DOMLIST} ]
+then
+    echo 'Error: le-domains.txt is missing!'
+    echo 'Now I have created one, please edit it, then run le-renew.sh again.'
+    dom_echo '# Please list the domains that will be served from this host.'
+    dom_echo '# One entry per line.'
+    dom_echo '# Entries that are not subdomains will automatically'
+    dom_echo '# request the www subdomain, too.'
+    exit 1
+fi
 
 # don't break at spaces
 IFS=$'\n'
@@ -54,9 +70,11 @@ renew_cert ()
     return $?
 }
 
+COUNT=0
 # don't parse lines starting with #
 for DOM in $(grep -v ^# ${DOMLIST})
 do
+    let "COUNT++"
     # if it's not a subdomain, request cert for www too
     DOTS=$(echo ${DOM} | grep -o '\.' | wc -l)
     if [ ${DOTS} -eq 1 ]
@@ -77,3 +95,12 @@ do
 done
 
 ${EXEC} "/bin/systemctl start ${WEBSRV}"
+
+if [ ${COUNT} -eq 0 ]
+then
+    echo 'Error: no domains in le-domains.txt!'
+    echo 'Please add at least one.'
+    exit 2
+fi
+
+exit 0
