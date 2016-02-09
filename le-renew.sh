@@ -102,7 +102,7 @@ do
     while [ $? -ne 0 ]
     do
 	# don't spam too much
-	sleep 10
+	sleep 60
 	renew_cert ${DOM} ${WWW}
     done
 done
