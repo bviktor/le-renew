@@ -1,2 +1,4 @@
+hook-post/*.sh
+hook-pre/*.sh
 le-domains.txt
 le-renew.log

@@ -31,8 +31,14 @@ IFS=$'\n'
 # make sure it works even in cron with different $PATH
 LECMD='/bin/letsencrypt certonly --renew-by-default'
 
+# Let's Encrypt main config folder
+LE_DIR='/etc/letsencrypt'
+
 # cert renewal config folder
-CONF='/etc/letsencrypt/renewal/'
+export CONF_DIR="${LE_DIR}/renewal"
+
+# cert folder
+export CERT_DIR="${LE_DIR}/live"
 
 # initialize the WWW param
 WWW=0
@@ -44,9 +50,12 @@ else
     export EXEC='eval'
 fi
 
-# execute pre-renew hook
-# run it regardless of $DEBUG so that we can see the commands inside the hooks
-eval ${DIR}/le-hook-pre.sh
+# execute pre-renew hooks
+# run them regardless of $DEBUG so that we can see the commands inside the hooks
+for HOOK in $(ls -1 ${DIR}/hook-pre/*.sh)
+do
+    eval ${HOOK}
+done
 
 # make sure port 80 is available
 ${EXEC} "/bin/systemctl stop ${WEBSRV}"
@@ -54,7 +63,7 @@ ${EXEC} "/bin/systemctl stop ${WEBSRV}"
 renew_cert ()
 {
     # FIXME make sure letsencrypt doesn't ask any questions
-    #sed -i 's/renew_by_default = False/renew_by_default = True/g' "${CONF}/${1}.conf"
+    #sed -i 's/renew_by_default = False/renew_by_default = True/g' "${CONF_DIR}/${1}.conf"
 
     # deal with unary operator expected bullshit
     WWWF=$2
@@ -107,8 +116,11 @@ then
     exit 2
 fi
 
-# execute post-renew hook
-# run it regardless of $DEBUG so that we can see the commands inside the hooks
-eval ${DIR}/le-hook-post.sh
+# execute post-renew hooks
+# run them regardless of $DEBUG so that we can see the commands inside the hooks
+for HOOK in $(ls -1 ${DIR}/hook-post/*.sh)
+do
+    eval ${HOOK}
+done
 
 exit 0
