@@ -13,7 +13,7 @@ E.g.: if you add `foobar.com`, the cert will contain `foobar.com` and `www.fooba
 ## Hooks
 
 You can add pre-renew hooks under the `hook-pre` folder and post-renew hooks under the `hook-post` dir.
-It is recommended to use ${EXEC} for evey command - this way the hook will respect the DEBUG variable.
+It is recommended to use `${EXEC}` for evey command - this way the hook will respect the `DEBUG` variable.
 
 An example `hook-post/znc.sh` hook:
 
