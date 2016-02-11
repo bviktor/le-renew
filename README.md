@@ -12,7 +12,7 @@ E.g.: if you add `foobar.com`, the cert will contain `foobar.com` and `www.fooba
 
 ## Emails
 
-le-renew always sends renewal reports to the address specified in `le-config.sh`. Examples:
+le-renew always sends renewal reports to the e-mail address specified in `le-config.sh`. Examples:
 
 ---
 
