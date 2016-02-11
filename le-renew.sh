@@ -29,7 +29,7 @@ export DOM_LIST="${ROOT_DIR}/le-domains.txt"
 IFS=$'\n'
 
 # command to request a Let's Encrypt cert
-LE_CMD='/bin/letsencrypt certonly --renew-by-default'
+LE_CMD='letsencrypt certonly --renew-by-default'
 
 # Let's Encrypt main config folder
 LE_DIR='/etc/letsencrypt'
@@ -110,7 +110,7 @@ mail_footer ()
 mail_echo ()
 {
     echo "$1<br />" >> ${MAIL_FILE}    
-    echo "$"
+    echo "$1"
 }
 
 check_cert ()
@@ -153,6 +153,20 @@ then
     exit 2
 fi
 
+# check command availability
+for CMD in curl letsencrypt systemctl
+do
+    which ${CMD}>/dev/null 2>&1
+    if [ $? -ne 0 ]
+    then
+	mail_echo "Error: ${CMD} is not available on your system!"
+	mail_echo 'Please install it before using le-renew.'
+
+	finish
+	exit 3
+    fi
+done
+
 # execute pre-renew hooks
 # run them regardless of $DEBUG so that we can see the commands inside the hooks
 for HOOK in $(ls -1 ${ROOT_DIR}/hook-pre/*.sh 2>/dev/null)
@@ -161,7 +175,7 @@ do
 done
 
 # make sure port 80 is available
-${EXEC} "/bin/systemctl stop ${WEBSRV}"
+${EXEC} "systemctl stop ${WEBSRV}"
 
 # don't parse lines starting with #
 for DOM in $(grep -v ^# ${DOM_LIST})
@@ -215,7 +229,7 @@ do
     mail_echo "----------"
 done
 
-${EXEC} "/bin/systemctl start ${WEBSRV}"
+${EXEC} "systemctl start ${WEBSRV}"
 
 if [ ${DOM_COUNT} -eq 0 ]
 then
@@ -223,7 +237,7 @@ then
     mail_echo 'Please add at least one.'
 
     finish
-    exit 3
+    exit 4
 fi
 
 # execute post-renew hooks
