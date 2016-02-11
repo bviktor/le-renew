@@ -10,6 +10,18 @@ E.g.: if you add `foobar.com`, the cert will contain `foobar.com` and `www.fooba
 * Set up hooks if needed.
 * Install the cronjob under `/etc/cron.d`, then restart the cron daemon.
 
+## Emails
+
+le-renew always sends renewal reports to the address specified in `le-config.sh`. Examples:
+
+### Success
+
+<img src="http://imgur.com/rgdPu5U.png" />
+
+### Failure
+
+<img src="http://imgur.com/R1NzZY7.png" />
+
 ## Hooks
 
 You can add pre-renew hooks under the `hook-pre` folder and post-renew hooks under the `hook-post` folder.
