@@ -14,11 +14,11 @@ E.g.: if you add `foobar.com`, the cert will contain `foobar.com` and `www.fooba
 
 le-renew always sends renewal reports to the address specified in `le-config.sh`. Examples:
 
-### Success
+---
 
 <img src="http://imgur.com/rgdPu5U.png" />
 
-### Failure
+---
 
 <img src="http://imgur.com/R1NzZY7.png" />
 
