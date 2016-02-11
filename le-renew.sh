@@ -154,7 +154,7 @@ then
 fi
 
 # check command availability
-for CMD in curl letsencrypt systemctl
+for CMD in curl letsencrypt openssl systemctl
 do
     which ${CMD}>/dev/null 2>&1
     if [ $? -ne 0 ]

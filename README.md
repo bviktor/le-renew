@@ -24,7 +24,7 @@ An example `hook-post/znc.sh` hook:
 # example post-renew hook to regenerate the ZNC cert file after each renew
 
 # CAUTION: here we assume there's only one domain
-DOM=$(grep -v "^#" ${DOMLIST})
+DOM=$(grep -v "^#" ${DOM_LIST})
 
 ZNC_DIR='/var/lib/znc/.znc'
 
@@ -40,5 +40,5 @@ ${EXEC} "cat ${CERT_DIR}/${DOM}/privkey.pem > ${ZNC_DIR}/znc.pem"
 ${EXEC} "cat ${CERT_DIR}/${DOM}/cert.pem >> ${ZNC_DIR}/znc.pem"
 ${EXEC} "cat ${ZNC_DIR}/dhparam.pem >> ${ZNC_DIR}/znc.pem"
 
-${EXEC} "/bin/systemctl restart znc.service"
+${EXEC} "systemctl restart znc.service"
 ~~~
