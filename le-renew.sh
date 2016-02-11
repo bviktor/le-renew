@@ -93,7 +93,7 @@ renew_cert ()
 mail_header ()
 {
     echo "To: ${RCPT}" > ${MAIL_FILE}
-    echo "Subject: Let's Encrypt Renewal Summary ${TODAY} @ ${HOSTNAME}" >> ${MAIL_FILE}
+    echo "Subject: Let's Encrypt Renewal Report @ ${HOSTNAME}" >> ${MAIL_FILE}
     echo "Mime-Version: 1.0;" >> ${MAIL_FILE}
     echo "Content-Type: text/html; charset=UTF-8;" >> ${MAIL_FILE}
     echo "" >> ${MAIL_FILE}
