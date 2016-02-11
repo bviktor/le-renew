@@ -1,0 +1,19 @@
+# if set to 1, only echo commands but don't execute them
+export DEBUG=0
+
+# service name for the webserver
+export WEBSRV='nginx'
+
+# email address to send renewal summary emails to
+export RCPT='admin@foo.bar'
+
+# Host receiving your emails
+# for Office 365, use smtp://smtp.office365.com:587
+# for Google, use smtps://smtp.gmail.com:465
+SMTP_HOST='smtp://smtp.office365.com:587'
+
+# Mails come from this address 
+SMTP_SENDER='cert@foo.bar'
+
+# Account used for SMTP authentication in user:password format
+SMTP_USER='noreply@foo.bar:kewl_password'
